@@ -1,15 +1,13 @@
-FROM ubuntu:20.04
+FROM tensorflow/tensorflow:latest-gpu-jupyter
 
-RUN apt update && \
-    apt install -y git && \
-    apt install -y sudo && \
-    apt install -y neovim && \
-    apt install -y ansible && \
-    apt install -y language-pack-en
+RUN apt update && apt install -y git htop ncdu wget 
 
-RUN useradd -m -s /bin/bash -G sudo -U fmind && \
-    echo "fmind ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+RUN wget -qO- https://deb.nodesource.com/setup_14.x | bash -
 
-USER fmind
+RUN apt update && apt install -y nodejs python3-dev build-essential
 
-WORKDIR /home/fmind
+RUN rm -rf ~/.jupyter && git clone --depth=1 https://github.com/fmind/jupyter.d ~/.jupyter
+
+RUN python3 -m pip install RISE voila jupytext papermill ipywidgets ipyparallel jupyterlab nteract-scrapbook 
+
+CMD ["bash", "-c", "source /etc/bash.bashrc && jupyter lab --notebook-dir=/tf --ip 0.0.0.0 --no-browser --allow-root"]

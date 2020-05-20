@@ -1,10 +1,13 @@
 IMAGE = fmind/lab
 
+rebuild:
+	docker build --no-cache -t ${IMAGE} .
+
 build:
 	docker build -t ${IMAGE} .
 
-push: build
-	docker push ${IMAGE}
-
-run:
+run: build
 	docker run -it ${IMAGE}
+
+push: rebuild
+	docker push ${IMAGE}
