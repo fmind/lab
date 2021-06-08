@@ -1,12 +1,7 @@
 # set base image
 FROM tensorflow/tensorflow:latest-gpu-jupyter
-# install nodejs setup
-RUN wget -qO- https://deb.nodesource.com/setup_14.x | bash -
-# install system packages
-RUN apt update && apt install -y git ansible build-essential nodejs python3-dev
-# install git repositories 
+# install git repositories
 RUN rm -r /root/.jupyter
-RUN git clone --depth=1 https://github.com/fmind/devfiles
-RUN cd devfiles && ansible-playbook -i inventory.ini site.yml --tag pre --tag jupyter --tag tensorflow
-# set the default lab command
+RUN git clone --depth=1 https://github.com/fmind/jupyter.d root/.jupyter
+# set the default jupyter command
 CMD ["bash", "-c", "source /etc/bash.bashrc && jupyter lab --notebook-dir=/tf --ip 0.0.0.0 --no-browser --allow-root"]
