@@ -1,5 +1,5 @@
 # VARS
-IMAGE = fmind/lab
+IMAGE:=fmind/lab
 # TASKS
 push: rebuild
 	docker push ${IMAGE}
