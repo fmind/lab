@@ -1,4 +1,5 @@
 # set base image
+<<<<<<< HEAD
 FROM tensorflow/tensorflow:latest-gpu
 # install node setup
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
