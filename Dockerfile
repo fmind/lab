@@ -10,7 +10,6 @@ RUN useradd -m -s /bin/bash -G sudo -U fmind
 WORKDIR /home/fmind
 USER fmind
 # define port exposes
-EXPOSE 4001/tcp
 EXPOSE 8888/tcp
 # define mount volumes
 VOLUME /home/fmind/.ssh
